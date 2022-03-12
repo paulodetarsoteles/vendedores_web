@@ -1,6 +1,4 @@
-using System;
-
-namespace KVendasWeb.Models
+namespace KVendasWeb.Models.ViewModels
 {
     public class ErrorViewModel
     {

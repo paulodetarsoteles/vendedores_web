@@ -1,4 +1,5 @@
 ﻿using KVendasWeb.Models;
+using KVendasWeb.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
