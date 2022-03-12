@@ -17,7 +17,8 @@ namespace KVendasWeb.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Sistema de controle de vendas.";
+            ViewData["Autor"] = "Paulo de Tarso Teles Ramos Filho"; 
 
             return View();
         }
