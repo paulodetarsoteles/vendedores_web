@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using KVendasWeb.Models;
+using KVendasWeb.Models; 
 
 namespace KVendasWeb.Data
 {
@@ -14,6 +14,8 @@ namespace KVendasWeb.Data
         {
         }
 
-        public DbSet<KVendasWeb.Models.Departament> Departament { get; set; }
+        public DbSet<Departament> Departament { get; set; }
+        public DbSet<Seller> Seller { get; set; }
+        public DbSet<SalesRecord> SalesRecord { get; set; }
     }
 }
