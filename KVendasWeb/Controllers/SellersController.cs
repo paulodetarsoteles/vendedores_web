@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using KVendasWeb.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics; 
+using Microsoft.AspNetCore.Mvc;
 using KVendasWeb.Models;
 using KVendasWeb.Models.ViewModels;
-using System.Collections.Generic;
-using KVendasWeb.Services.Exceptions;
+using KVendasWeb.Services;
 
 namespace KVendasWeb.Controllers
 {
@@ -43,12 +44,12 @@ namespace KVendasWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
             var obj = _sellerServices.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
             else
             {
@@ -60,12 +61,12 @@ namespace KVendasWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
             var obj = _sellerServices.FindById(id.Value);
             if (obj == null)
             {
-                return ViewBag.Id = id.Value;
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
             else
             {
@@ -81,7 +82,7 @@ namespace KVendasWeb.Controllers
         {
             if (id != seller.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id não corresponde!" });
             }
             else
             {
@@ -90,13 +91,9 @@ namespace KVendasWeb.Controllers
                     _sellerServices.Update(seller);
                     return RedirectToAction(nameof(Index));
                 }
-                catch (NotFoundException)
+                catch (ApplicationException e)
                 {
-                    return NotFound();
-                }
-                catch (DbConcurrencyException)
-                {
-                    return BadRequest();
+                    return RedirectToAction(nameof(Error), new { message = e.Message });
                 }
             }
         }
@@ -105,12 +102,12 @@ namespace KVendasWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" }); 
             }
             var obj = _sellerServices.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
             else
             {
@@ -124,6 +121,15 @@ namespace KVendasWeb.Controllers
         {
             _sellerServices.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            }; 
+            return View(viewModel);
         }
     }
 }
