@@ -19,16 +19,7 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                Nascimento
-            </th>
-            <th>
-                Salario
-            </th>
-            <th>
-                Departamento
-            </th>
-            <th>
-
+                Opções
             </th>
         </tr>
     </thead>
@@ -41,15 +32,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Birthday)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BaseSalary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepartamentID)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
