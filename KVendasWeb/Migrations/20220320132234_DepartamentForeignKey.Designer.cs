@@ -3,14 +3,16 @@ using System;
 using KVendasWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KVendasWeb.Migrations
 {
     [DbContext(typeof(KVendasWebContext))]
-    partial class KVendasWebContextModelSnapshot : ModelSnapshot
+    [Migration("20220320132234_DepartamentForeignKey")]
+    partial class DepartamentForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
