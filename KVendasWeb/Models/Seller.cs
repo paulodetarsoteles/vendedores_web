@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Net;  
 using System.Linq;
 
 namespace KVendasWeb.Models
@@ -8,7 +9,11 @@ namespace KVendasWeb.Models
     public class Seller
     {
         public int Id { get; set; }
+        [Required(ErrorMessage ="Nome obrigatorio")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage ="Digite um nome valido")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Email obrigatorio")]
+        [EmailAddress(ErrorMessage ="Digite um email valido")]
         [Display(Name = "E-Mail")]
         public string Email { get; set; }
         [DataType(DataType.Date)]

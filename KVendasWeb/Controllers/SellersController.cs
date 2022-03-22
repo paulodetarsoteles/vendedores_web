@@ -36,6 +36,12 @@ namespace KVendasWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                var departaments = _departamentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departaments = departaments };
+                return View(viewModel);
+            }
             _sellerServices.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
@@ -57,8 +63,14 @@ namespace KVendasWeb.Controllers
             }
         }
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id, Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                var departaments = _departamentService.FindAll(); 
+                var viewModel = new SellerFormViewModel { Seller = seller , Departaments = departaments};
+                return View(viewModel);
+            }
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
