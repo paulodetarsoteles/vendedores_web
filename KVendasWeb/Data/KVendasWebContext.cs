@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using KVendasWeb.Models; 
 
-namespace KVendasWeb.Data
+namespace KVendasWeb.Models
 {
     public class KVendasWebContext : DbContext
     {

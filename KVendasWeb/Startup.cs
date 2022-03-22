@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using KVendasWeb.Data;
 using KVendasWeb.Services;
+using KVendasWeb.Models;
 
 namespace KVendasWeb
 {
@@ -38,6 +39,7 @@ namespace KVendasWeb
 
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<SalesRecordService>();
             services.AddScoped<DepartamentService>();
         }
 
