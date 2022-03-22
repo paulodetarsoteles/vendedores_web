@@ -1,10 +1,10 @@
 ﻿using KVendasWeb.Data;
 using KVendasWeb.Models;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using KVendasWeb.Services.Exceptions;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace KVendasWeb.Services
 {
@@ -52,9 +52,16 @@ namespace KVendasWeb.Services
 
         public async Task RemoveAsync(int id)
         {
+            try
+            {
             var obj = await _context.Seller.FindAsync(id); 
             _context.Seller.Remove(obj);
             await _context.SaveChangesAsync(); 
+            }
+            catch(DbUpdateException e)
+            {
+                throw new IntegrityException(e.Message); 
+            }
         }
     }
 }

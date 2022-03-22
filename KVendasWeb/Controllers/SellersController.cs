@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics; 
-using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using KVendasWeb.Models;
 using KVendasWeb.Models.ViewModels;
 using KVendasWeb.Services;
-using System.Threading.Tasks;
+using KVendasWeb.Services.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KVendasWeb.Controllers
 {
@@ -132,8 +133,15 @@ namespace KVendasWeb.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
             await _sellerServices.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
+            }
+            catch(IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
         public IActionResult Error(string message)
         {
