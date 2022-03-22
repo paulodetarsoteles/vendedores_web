@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using KVendasWeb.Models;
 using KVendasWeb.Models.ViewModels;
 using KVendasWeb.Services;
+using System.Threading.Tasks;
 
 namespace KVendasWeb.Controllers
 {
@@ -19,40 +20,40 @@ namespace KVendasWeb.Controllers
             _departamentService = departamentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _sellerServices.FindAll();
+            var list = await _sellerServices.FindAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departaments = _departamentService.FindAll();
+            var departaments = await _departamentService.FindAllAsync();
             var viewModel = new SellerFormViewModel { Departaments = departaments };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
             if (!ModelState.IsValid)
             {
-                var departaments = _departamentService.FindAll();
+                var departaments = await _departamentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departaments = departaments };
                 return View(viewModel);
             }
-            _sellerServices.Insert(seller);
+            await _sellerServices.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
-            var obj = _sellerServices.FindById(id.Value);
+            var obj = await _sellerServices.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
@@ -63,11 +64,11 @@ namespace KVendasWeb.Controllers
             }
         }
 
-        public IActionResult Edit(int? id, Seller seller)
+        public async Task<IActionResult> Edit(int? id, Seller seller)
         {
             if (!ModelState.IsValid)
             {
-                var departaments = _departamentService.FindAll(); 
+                var departaments = await _departamentService.FindAllAsync(); 
                 var viewModel = new SellerFormViewModel { Seller = seller , Departaments = departaments};
                 return View(viewModel);
             }
@@ -75,14 +76,14 @@ namespace KVendasWeb.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
-            var obj = _sellerServices.FindById(id.Value);
+            var obj = await _sellerServices.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
             else
             {
-                List<Departament> departaments = _departamentService.FindAll();
+                List<Departament> departaments = await _departamentService.FindAllAsync();
                 SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departaments = departaments };
                 return View(viewModel);
             }
@@ -90,7 +91,7 @@ namespace KVendasWeb.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
             if (id != seller.Id)
             {
@@ -100,7 +101,7 @@ namespace KVendasWeb.Controllers
             {
                 try
                 {
-                    _sellerServices.Update(seller);
+                    await _sellerServices.UpdateAsync(seller);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (ApplicationException e)
@@ -110,13 +111,13 @@ namespace KVendasWeb.Controllers
             }
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" }); 
             }
-            var obj = _sellerServices.FindById(id.Value);
+            var obj = await _sellerServices.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
@@ -129,9 +130,9 @@ namespace KVendasWeb.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerServices.Remove(id);
+            await _sellerServices.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Error(string message)

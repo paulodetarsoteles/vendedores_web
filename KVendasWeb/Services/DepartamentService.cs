@@ -1,7 +1,9 @@
 ﻿using KVendasWeb.Data;
 using KVendasWeb.Models;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore; 
 
 namespace KVendasWeb.Services
 {
@@ -12,9 +14,9 @@ namespace KVendasWeb.Services
         {
             _context = context;
         }
-        public List<Departament> FindAll()
+        public async Task<List<Departament>> FindAllAsync()
         {
-            return _context.Departament.OrderBy(x => x.Name).ToList();
+            return await _context.Departament.OrderBy(x => x.Name).ToListAsync();
         }
     }
 }
