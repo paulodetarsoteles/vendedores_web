@@ -22,6 +22,7 @@ namespace KVendasWeb.Models
         {
             Sellers.Add(s);
         }
+
         public double TotalSales(DateTime initial, DateTime final)
         {
             return Sellers.Sum(s => s.TotalSales(initial, final));

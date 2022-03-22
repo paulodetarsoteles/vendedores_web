@@ -54,6 +54,7 @@ namespace KVendasWeb.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
+
             var obj = await _sellerServices.FindByIdAsync(id.Value);
             if (obj == null)
             {
@@ -77,6 +78,7 @@ namespace KVendasWeb.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" });
             }
+
             var obj = await _sellerServices.FindByIdAsync(id.Value);
             if (obj == null)
             {
@@ -118,6 +120,7 @@ namespace KVendasWeb.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não fornecido!" }); 
             }
+
             var obj = await _sellerServices.FindByIdAsync(id.Value);
             if (obj == null)
             {

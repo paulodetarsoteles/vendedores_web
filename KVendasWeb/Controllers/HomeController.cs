@@ -1,11 +1,6 @@
-﻿using KVendasWeb.Models;
-using KVendasWeb.Models.ViewModels;
+﻿using KVendasWeb.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KVendasWeb.Controllers
 {
@@ -20,14 +15,12 @@ namespace KVendasWeb.Controllers
         {
             ViewData["Message"] = "Sistema de controle de vendas.";
             ViewData["Autor"] = "Paulo de Tarso Teles Ramos Filho"; 
-
             return View();
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

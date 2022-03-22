@@ -18,7 +18,7 @@ namespace KVendasWeb.Data
         {
             if(_context.Departament.Any() || _context.Seller.Any() || _context.SalesRecord.Any())
             {
-                return; //DB has been seeded! 
+                return; 
             }
 
             Departament d1 = new Departament { Id = 1 , Name = "Eletronicos"};
